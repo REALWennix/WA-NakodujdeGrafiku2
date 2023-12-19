@@ -179,14 +179,80 @@ li :hover {
     height: 10vh;
 }
 
+
 @media only screen and (max-width: 800px) {
-    .nav{
+    .nav {
         display: none;
     }
+
     .search-button .fa-reorder {
         display: contents;
     }
+
     .search-button .fa-search {
         display: none;
     }
-  }
+
+    .box-two {
+        display: none;
+    }
+
+    .box {
+        height: 150px;
+        font-size: 20px;
+    }
+
+    .box-container {
+        width: 100%;
+    }
+
+    .main-box-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        height: 15vh;
+        margin: 0px 0px 20px 0px;
+        width: 98%;
+    }
+    .box-three{
+        flex-basis: 29%;
+    }
+
+    .box-one {
+        flex-basis: 29%;
+    }
+
+    .centered-div .box-container{
+        height: auto;
+    }
+
+    .box-footer{
+        flex-basis: 29%;
+        height: 10vh;
+    }
+
+}
+
+@media only screen and (max-width: 360px) {
+
+    .box-one,
+    .box-two,
+    .box-three,
+    .box-footer {
+        flex-basis: 100%;
+    }
+
+    .sidebar {
+        width: 96%;
+        height: 10vh;
+    }
+
+    .footer .box-container {
+        width: 70%;
+    }
+
+    .footer .box-footer:not(:first-child) {
+        display: none;
+    }
+}
