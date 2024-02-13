@@ -1,30 +1,47 @@
 window.addEventListener("DOMContentLoaded", (event) => {
-    const menu = document.getElementById('menu');
-    const links = [
-        '<li><a role="menuitem" class="nav-link" href="https://moodle.spsejecna.cz/" tabindex="-1">Titulní stránka</a></li>',
-        '<li><a role="menuitem" class="nav-link" href="https://moodle.spsejecna.cz/my/" tabindex="-1">Nástěnka</a></li>',
-        '<li><a role="menuitem" class="nav-link active" href="https://moodle.spsejecna.cz/my/courses.php" aria-current="true">Moje kurzy</a></li>',
-        '<li><a role="menuitem" class="nav-link" href="https://moodle.spsejecna.cz/course/request.php" tabindex="-1">Požádat o kurz</a></li>',
-        '<li><a role="menuitem" class="nav-link" href="https://oldmoodle.spsejecna.cz/" tabindex="-1">Starý Moodle</a></li>',
-        '<li><a href="#">Další</a></li>'
-    ];
+   const menu = document.getElementById('menu');
 
-    const shuffleArray = (array) => {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    };
+   const links = [
+      { text: 'Titulní stránka', href: 'https://moodle.spsejecna.cz/' },
+      { text: 'Nástěnka', href: 'https://moodle.spsejecna.cz/my/' },
+      { text: 'Moje kurzy', href: 'https://moodle.spsejecna.cz/my/courses.php', isActive: true },
+      { text: 'Požádat o kurz', href: 'https://moodle.spsejecna.cz/course/request.php' },
+      { text: 'Starý Moodle', href: 'https://oldmoodle.spsejecna.cz/' },
+      { text: 'Další', href: '#' }
+   ];
 
-    shuffleArray(links);
-
-    const numberOfLinksToShow = 5;
-
-    menu.innerHTML = '<ul>';
-
-    for (let i = 0; i < Math.min(numberOfLinksToShow, links.length); i++) {
-        menu.innerHTML += links[i];
-    }
-
-    menu.innerHTML += '</ul>';
+   generateRandomMenu(menu, links);
 });
+
+function generateRandomMenu(menuElement, linksArray) {
+   const ul = document.createElement('ul');
+   ul.classList.add('nav');
+
+   const randomCount = Math.floor(Math.random() * linksArray.length) + 1;
+
+   for (let i = 0; i < randomCount; i++) {
+      const randomIndex = Math.floor(Math.random() * linksArray.length);
+      const linkObj = linksArray[randomIndex];
+
+      const li = document.createElement('li');
+      li.classList.add('nav-item');
+
+      const a = document.createElement('a');
+      a.setAttribute('role', 'menuitem');
+      a.classList.add('nav-link');
+      if (linkObj.isActive) {
+         a.classList.add('active');
+         a.setAttribute('aria-current', 'true');
+      }
+      a.textContent = linkObj.text;
+      a.setAttribute('href', linkObj.href);
+      a.setAttribute('tabindex', '-1');
+
+      li.appendChild(a);
+      ul.appendChild(li);
+
+      linksArray.splice(randomIndex, 1);
+   }
+
+   menuElement.appendChild(ul);
+}
